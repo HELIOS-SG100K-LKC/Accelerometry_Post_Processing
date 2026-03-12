@@ -625,6 +625,8 @@ def impute_data(df, time_resolution, dictionary, collapse_level, inclusion_crite
                                 (df['day_number'] == dayNum))
 
                         df.loc[condition, ['ENMO_mean', 'ENMO_0plus', 'Pwear']] = [0, 1, 1]
+                        if not any(item.lower() == "hpfvm" for item in config.VARIABLES_TO_DROP):
+                            df.loc[condition, ['HPFVM_mean', 'HPFVM_0plus']] = [0, 1]
 
         if collapse_level == 'daily':
             subset_df = df[(df['Pwear'] == 1)]
